@@ -1,8 +1,6 @@
 # Substituim labels per números enlloc d'strings
 import os
 
-# Set the path to your folder
-folder_path = 'train_output_prova'
 
 # Function to replace animal strings with integers
 def replace_animals_with_integers(file_path, animal_mapping):
@@ -31,18 +29,17 @@ animal_names = ['Bear', 'Brown bear', 'Bull', 'Butterfly', 'Camel', 'Canary', 'C
 
 
 # Create animal mapping (animal name to integer)
-animal_mapping = {animal: index + 1 for index, animal in enumerate(animal_names)}
+animal_mapping = {animal: index for index, animal in enumerate(animal_names)}
 
 print("Animal Mapping:")
 print(animal_mapping)
-''''''
-# Iterate through each file in the labels folder
-labels_folder = os.path.join(folder_path, 'labels')
-for filename in os.listdir(labels_folder):
-    if filename.endswith(".txt"):
-        file_path = os.path.join(labels_folder, filename)
 
-        # Read the file and replace animal strings with integers
-        replace_animals_with_integers(file_path, animal_mapping)
+for folder_path in ['train_output', 'val_output']:
+    # Iterate through each file in the labels folder
+    labels_folder = os.path.join(folder_path, 'labels')
+    for filename in os.listdir(labels_folder):
+        if filename.endswith(".txt"):
+            file_path = os.path.join(labels_folder, filename)
 
-# Print the mapping (optional)
+            # Read the file and replace animal strings with integers
+            replace_animals_with_integers(file_path, animal_mapping)
