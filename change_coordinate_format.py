@@ -24,14 +24,15 @@ def change_format_and_normalize_coord(file_label_path, W, H):
     with open(file_label_path, 'w') as file:
         file.writelines(updated_lines)
     
-labels_folder = os.path.join(folder_path, 'labels')
-images_folder = os.path.join(folder_path, 'images')
 
-for filename in os.listdir(labels_folder):
-    if filename.endswith(".txt"):
-        file_label_path = os.path.join(labels_folder, filename)
-        file_image_path = os.path.join(images_folder, f'{filename[:-4]}.jpg')
-        img = Image.open(file_image_path)
-        W,H = img.width, img.height
-        # Read the file and replace animal strings with integers
-        change_format_and_normalize_coord(file_label_path, W, H)
+for folder_path in ['train_output', 'val_output']:
+    labels_folder = os.path.join(folder_path, 'labels')
+    images_folder = os.path.join(folder_path, 'images')
+    for filename in os.listdir(labels_folder):
+        if filename.endswith(".txt"):
+            file_label_path = os.path.join(labels_folder, filename)
+            file_image_path = os.path.join(images_folder, f'{filename[:-4]}.jpg')
+            img = Image.open(file_image_path)
+            W,H = img.width, img.height
+            # Read the file and replace animal strings with integers
+            change_format_and_normalize_coord(file_label_path, W, H)
